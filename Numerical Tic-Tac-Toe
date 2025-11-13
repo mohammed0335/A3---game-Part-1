@@ -1,0 +1,64 @@
+#include <iostream>
+#include "BoardGame_Classes.h"
+#include "5.h"
+
+using namespace std;
+
+int main()
+{
+    while (true)
+    {
+        
+        int userChoice;
+        cout << "\n========== Welcome to Numerical Tic-Tac-Toe ==========" << endl
+             << "1- Play Game" << endl
+             << "2- Exit" << endl
+             << "Enter your choice: ";
+        cin >> userChoice;
+
+        if (userChoice == 1)
+        {
+          
+            Player<int> *gamePlayers[2];
+            X_O_Board_5<int> *gameBoard = new X_O_Board_5<int>();
+            string firstPlayerName, secondPlayerName;
+
+            // Get player 1 information
+            cout << "\nEnter Player 1 name: ";
+            cin >> firstPlayerName;
+            cout << "Player 1 will use odd numbers (1, 3, 5, 7, 9)\n";
+
+            // Get player 2 information
+            cout << "\nEnter Player 2 name: ";
+            cin >> secondPlayerName;
+            cout << "Player 2 will use even numbers (2, 4, 6, 8)\n";
+
+            // Create player objects
+            gamePlayers[0] = new X_O_Player_5<int>(firstPlayerName, player_1);
+            gamePlayers[1] = new X_O_Player_5<int>(secondPlayerName, player_2);
+
+            // Initialize game manager and play
+            GameManager<int> numericalTicTacToe(gameBoard, gamePlayers);
+            numericalTicTacToe.run();
+
+            // Free allocated memory
+            delete gameBoard;
+            for (int playerIndex = 0; playerIndex < 2; ++playerIndex)
+            {
+                delete gamePlayers[playerIndex];
+            }
+        }
+        else if (userChoice == 2)
+        {
+            cout << "\nThank you for playi\n"
+                 << endl;
+            break;
+        }
+        else
+        {
+            cout << "\nInvalid choice. Please enter 1 or 2.\n"
+                 << endl;
+        }
+    }
+    return 0;
+}
